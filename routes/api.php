@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CategoryFirstController;
 use App\Http\Controllers\Admin\CategorySecondController;
 use App\Http\Controllers\Admin\CategoryThirdController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -37,16 +38,21 @@ Route::delete('admin/role/{id}',[RoleController::class , 'destroy'])->name('role
 
 //Product Route All
 //Admin Route Category First
-Route::get('admin/category-first',[CategoryFirstController::class ,'index'])->name('role.category-first');
-Route::post('admin/category-first',[CategoryFirstController::class , 'store'])->name('role.category-first');
-Route::delete('admin/category-first/{id}',[CategoryFirstController::class , 'destroy'])->name('role.category-first');
+Route::get('admin/category-first',[CategoryFirstController::class ,'index'])->name('category-first.index');
+Route::post('admin/category-first',[CategoryFirstController::class , 'store'])->name('category-first.store');
+Route::delete('admin/category-first/{id}',[CategoryFirstController::class , 'destroy'])->name('category-first.destroy');
 
 //Admin Route Category Second
-Route::get('admin/category-second',[CategorySecondController::class ,'index'])->name('role.category-second');
-Route::post('admin/category-second',[CategorySecondController::class , 'store'])->name('role.category-second');
-Route::delete('admin/category-second/{id}',[CategorySecondController::class , 'destroy'])->name('role.category-second');
+Route::get('admin/category-second',[CategorySecondController::class ,'index'])->name('category-second.index');
+Route::post('admin/category-second',[CategorySecondController::class , 'store'])->name('category-second.store');
+Route::delete('admin/category-second/{id}',[CategorySecondController::class , 'destroy'])->name('category-second.destroy');
 
 //Admin Route Category Second
-Route::get('admin/category-third',[CategoryThirdController::class ,'index'])->name('role.category-third');
-Route::post('admin/category-third',[CategoryThirdController::class , 'store'])->name('role.category-third');
-Route::delete('admin/category-third/{id}',[CategoryThirdController::class , 'destroy'])->name('role.category-third');
+Route::get('admin/category-third',[CategoryThirdController::class ,'index'])->name('category-third.index');
+Route::post('admin/category-third',[CategoryThirdController::class , 'store'])->name('category-third.store');
+Route::delete('admin/category-third/{id}',[CategoryThirdController::class , 'destroy'])->name('category-third.destroy');
+
+//Admin Route Category Second
+Route::get('admin/product',[ProductController::class ,'index'])->name('product.index');
+Route::post('admin/product',[ProductController::class , 'store'])->name('product.store');
+Route::delete('admin/product/{id}',[ProductController::class , 'destroy'])->name('product.destroy');

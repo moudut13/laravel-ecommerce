@@ -30,7 +30,7 @@ class PermissionController extends Controller
     public function store(Request $request)
     {
         Permission::create([
-            'name' => $request->name,
+            'name' => ucfirst($request->name),
             'slug' => str::slug($request->name),
         ]);
     }

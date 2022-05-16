@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role;
+use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
-class RoleController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +15,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $data = Role::all();
+        $data = Product::all();
         return $data;
     }
 
@@ -38,11 +37,25 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $permission = json_encode($request->permissionname);
-        Role::create([
-            'name' => ucfirst($request->name),
-            'slug' => str::slug($request->name),
-            'permission' => $permission,
+        Product::create([
+            'category_first_id'     => $request->a,
+            'category_second_id'    => $request->b,
+            'category_third_id'     => $request->c,
+            'tag_id'                => $request->d,
+            'name'                  => ucfirst($request->e),
+            'slug'                  => $request->f,
+            'sku'                   => $request->g,
+            'stock'                 => $request->h,
+            'short_desc'            => $request->i,
+            'long_desc'             => $request->j,
+            'regular_price'         => $request->k,
+            'sale_price'            => $request->z,
+            'gallery'               => $request->x,
+            'color'                 => $request->v,
+            'size'                  => $request->n,
+            'hot_deal'              => $request->m,
+            'featured_deal'         => $request->q,
+
         ]);
     }
 
@@ -88,7 +101,7 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        $role = Role::find($id);
-        $role->delete();
+        $product = Product::find($id);
+        $product->delete();
     }
 }

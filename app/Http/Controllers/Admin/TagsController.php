@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class RoleController extends Controller
+class TagsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $data = Role::all();
-        return $data;
+        $data = Tag::all();
+        return  $data;
     }
 
     /**
@@ -38,11 +38,9 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $permission = json_encode($request->permissionname);
-        Role::create([
+        Tag::create([
             'name' => ucfirst($request->name),
             'slug' => str::slug($request->name),
-            'permission' => $permission,
         ]);
     }
 
@@ -88,7 +86,7 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        $role = Role::find($id);
-        $role->delete();
+        $tag = Tag::find($id);
+        $tag->delete();
     }
 }
