@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CategoryThirdController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\TagsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -51,6 +52,12 @@ Route::delete('admin/category-second/{id}',[CategorySecondController::class , 'd
 Route::get('admin/category-third',[CategoryThirdController::class ,'index'])->name('category-third.index');
 Route::post('admin/category-third',[CategoryThirdController::class , 'store'])->name('category-third.store');
 Route::delete('admin/category-third/{id}',[CategoryThirdController::class , 'destroy'])->name('category-third.destroy');
+
+//Admin Route Tag Second
+Route::get('admin/tag',[TagsController::class ,'index'])->name('tag.index');
+Route::post('admin/tag',[TagsController::class , 'store'])->name('tag.store');
+Route::put('admin/tag/{id}',[TagsController::class , 'status'])->name('tag.status');
+Route::delete('admin/tag/{id}',[TagsController::class , 'destroy'])->name('tag.destroy');
 
 //Admin Route Category Second
 Route::get('admin/product',[ProductController::class ,'index'])->name('product.index');

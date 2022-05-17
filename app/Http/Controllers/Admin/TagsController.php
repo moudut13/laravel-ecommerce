@@ -75,7 +75,21 @@ class TagsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+    }
+
+    /**
+     * Status the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function status(Request $request, $id)
+    {
+        $tag = Tag::findOrFail($id);
+        $tag -> status = $request->status;
+        $tag->update();
     }
 
     /**
