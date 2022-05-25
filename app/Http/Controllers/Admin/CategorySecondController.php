@@ -80,6 +80,20 @@ class CategorySecondController extends Controller
     }
 
     /**
+     * Status the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function status(Request $request, $id)
+    {
+        $CategorySecond = CategorySecond::findOrFail($id);
+        $CategorySecond -> status = $request->status;
+        $CategorySecond->update();
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

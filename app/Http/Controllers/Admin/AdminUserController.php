@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\CategoryFirst;
+use App\Mail\UserAddMail;
+use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
-class CategoryFirstController extends Controller
+class AdminUserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +18,7 @@ class CategoryFirstController extends Controller
      */
     public function index()
     {
-        $data = CategoryFirst::all();
+        $data = Admin::all();
         return $data;
     }
 
@@ -38,26 +40,14 @@ class CategoryFirstController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->hasFile('photo')){
-            $img = $request->file('photo');
-            $picture = $this->uniqueFileName($img);
-            $img->move(storage_path('app/'),$picture);
-
-        }else{
-           $picture = null;
-        }
-
         $name = str::lower($request->name);
-        CategoryFirst::create([
+        Admin::create([
             'name' => ucfirst($name),
             'slug' => str::slug($request->name),
-            'photo' => $picture,
+            'email' => $request->email,
+            'password' => $request->password,
         ]);
-
-        return $request->ip();
-
-
-
+        Mail::to($request->email)->send(new UserAddMail());
     }
 
     /**
@@ -103,9 +93,9 @@ class CategoryFirstController extends Controller
      */
     public function status(Request $request, $id)
     {
-        $CategoryFirst = CategoryFirst::findOrFail($id);
-        $CategoryFirst -> status = $request->status;
-        $CategoryFirst->update();
+        $admin = Admin::findOrFail($id);
+        $admin -> status = $request->status;
+        $admin->update();
     }
 
     /**
@@ -116,7 +106,7 @@ class CategoryFirstController extends Controller
      */
     public function destroy($id)
     {
-        $CategoryFirst = CategoryFirst::find($id);
-        $CategoryFirst->delete();
+        $admin = Admin::find($id);
+        $admin->delete();
     }
 }

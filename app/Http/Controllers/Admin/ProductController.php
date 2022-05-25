@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -37,24 +38,40 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $color = json_encode($request->color);
+        $size = json_encode($request->size);
+        if ($request->hot_deal == 'on'){
+            $hot_deal = true;
+        }else{
+            $hot_deal = false;
+        }
+
+        if ($request->featured_deal == 'on'){
+            $featured_deal = true;
+        }else{
+            $featured_deal = false;
+        }
+
+        if ($request->status == 'on'){
+            $status = true;
+        }else{
+            $status = false;
+        }
+
         Product::create([
-            'category_first_id'     => $request->a,
-            'category_second_id'    => $request->b,
-            'category_third_id'     => $request->c,
-            'tag_id'                => $request->d,
-            'name'                  => ucfirst($request->e),
-            'slug'                  => $request->f,
-            'sku'                   => $request->g,
-            'stock'                 => $request->h,
-            'short_desc'            => $request->i,
-            'long_desc'             => $request->j,
-            'regular_price'         => $request->k,
-            'sale_price'            => $request->z,
-            'gallery'               => $request->x,
-            'color'                 => $request->v,
-            'size'                  => $request->n,
-            'hot_deal'              => $request->m,
-            'featured_deal'         => $request->q,
+            'name'                  => ucfirst($request->name),
+            'slug'                  => str::slug($request->name),
+            'sku'                   => $request->sku,
+            'stock'                 => $request->stock,
+            'short_desc'            => $request->short_desc,
+            'long_desc'             => $request->long_desc,
+            'regular_price'         => $request->regular_price,
+            'sale_price'            => $request->sale_price,
+            'color'                 => $color,
+            'size'                  => $size,
+            'hot_deal'              => $hot_deal,
+            'featured_deal'         => $featured_deal,
+            'status'                => $status,
 
         ]);
     }
@@ -91,6 +108,20 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+
+    /**
+     * Status the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function status(Request $request, $id)
+    {
+        $product = Product::findOrFail($id);
+        $product -> status = $request->status;
+        $product->update();
     }
 
     /**

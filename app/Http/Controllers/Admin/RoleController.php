@@ -81,6 +81,20 @@ class RoleController extends Controller
     }
 
     /**
+     * Status the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function status(Request $request, $id)
+    {
+        $role = Role::findOrFail($id);
+        $role -> status = $request->status;
+        $role->update();
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
